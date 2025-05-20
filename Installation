@@ -8,3 +8,26 @@ Start vault server in Dev mode
 ##############################
 vault server -dev
 
+by running it dev server 4 things requires to note it down
+PORT
+STORAGE
+UNSEAL KEY
+ROOT TOKEN
+
+---->example of the output 
+
+==> Vault server configuration:
+
+Administrative Namespace: 
+             Api Address: http://127.0.0.1:8200
+                     Cgo: disabled
+         Cluster Address: https://127.0.0.1:8201
+   Environment Variables: DBUS_SESSION_BUS_ADDRESS, GOTRACEBACK, HOME, LANG, LESSCLOSE, LESSOPEN, LOGNAME, LS_COLORS, PATH, PWD, SHELL, SHLVL, SSH_CLIENT, SSH_CONNECTION, SSH_TTY, TERM, USER, XDG_DATA_DIRS, XDG_RUNTIME_DIR, XDG_SESSION_CLASS, XDG_SESSION_ID, XDG_SESSION_TYPE, _
+              Go Version: go1.24.3
+              Listener 1: tcp (addr: "127.0.0.1:8200", cluster address: "127.0.0.1:8201", disable_request_limiter: "false", max_request_duration: "1m30s", max_request_size: "33554432", tls: "disabled")
+               Log Level: 
+                   Mlock: supported: true, enabled: false
+           Recovery Mode: false
+                 Storage: inmem
+                 Version: Vault v1.19.4, built 2025-05-14T13:04:47Z
+             Version Sha: 322786e236e268532e4b189845971ba67b5cbb23
