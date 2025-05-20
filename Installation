@@ -31,3 +31,28 @@ Administrative Namespace:
                  Storage: inmem
                  Version: Vault v1.19.4, built 2025-05-14T13:04:47Z
              Version Sha: 322786e236e268532e4b189845971ba67b5cbb23
+
+##################################################
+
+
+Now to start the vault server in the dev server we will take port and token from the received details and enter the command
+
+-->export VAULT_ADDR='http://127.0.0.1:8200'
+-->export VAULT_TOKEN="hvs.I6NBRueOl*********T"
+
+###################################################
+ to enter the secret we need to create a path for our secret 
+
+1)  To create path :
+vault secrets enable -path=my kv
+
+2) To add the secrets :
+vault kv put my/path my-key-1=value-1
+
+3)to see the secrets int the path in normal or json format
+vault kv get --format=json my/path
+or
+vault kv get my/path
+
+4)to check list of your paths and other details 
+vault path list
