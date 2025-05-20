@@ -55,4 +55,21 @@ or
 vault kv get my/path
 
 4)to check list of your paths and other details 
-vault path list
+vault secrets list
+
+output will be like this
+Path          Type         Accessor              Description
+----          ----         --------              -----------
+cubbyhole/    cubbyhole    cubbyhole_569b6b9a    per-token private secret storage
+db/           kv           kv_ef2f652b           n/a
+identity/     identity     identity_a54c4ddd     identity store
+my/           kv           kv_d6585499           n/a
+secret/       kv           kv_86d9d3be           key/value secret storage
+sys/          system       system_0d0d1eb9       system endpoints used for control, policy and debugging
+
+
+5) if i want to enable path for aws then 
+vault secrets enable -path=aws aws
+
+6) to Disable the vault path 
+vault secrets disable aws
