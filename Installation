@@ -73,3 +73,91 @@ vault secrets enable -path=aws aws
 
 6) to Disable the vault path 
 vault secrets disable aws
+
+
+##################################################################
+
+To Create dynamic secrets, we will creating a aws key and secret key
+ 
+1) First we will enable the path
+vault secrets enable -path=aws aws
+
+2) Set the Root config using root Access_key & Secret_key
+
+vault write aws/config/root \
+access_key=YOUR_ACCESS_KEY \
+secret_key=YOUR_SECRET_KEY \
+region=eu-north-1
+
+3) Setup the Role 
+
+vault write aws/roles/my-ec2-role \
+        credential_type=iam_user \
+        policy_document=-EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1426528957000",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:*"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+}
+EOF
+
+#################################################
+
+Vault Policy
+
+#################################################
+
+1) How to check policy
+
+vault policy list
+
+2)vault policy create our own vault policy for each paths to access secrets
+
+vault policy write my-policy - <<EOF
+# Dev servers have version 2 of KV secrets engine mounted by default, so will
+# need these paths to grant permissions:
+
+path "secret/data/*" {
+  capabilities = ["create", "update"]
+}
+
+path "secret/data/foo" {
+  capabilities = ["read"]
+}
+EOF
+
+3) if you want to read the policy which has been created 
+
+vault policy read my-policy
+
+4) if want to delete any of the policy vault policy delete my-policy
+
+vault policy delete my-policy
+
+5) Then we need to attach token with that policy 
+
+export VAULT_TOKEN="$(vault token create -field token -policy=my-policy)"
+
+6) Now if we try to create any secrets there as per the policy it will behave like on secrets path we can create and update credentials
+
+vault kv put -mount=secret creds password="my-long-password"
+-
+and as per the policy we have created a rule like we not create or update anything on path secrets/data/foo so if we try to add on that part it gives error
+
+vault kv put -mount=secret foo robot=beepboop (it gives error of like no authorised to edit or create)
+
+
+############################################################
+Auth methods and Policies
+############################################################
+
