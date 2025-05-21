@@ -160,4 +160,7 @@ vault kv put -mount=secret foo robot=beepboop (it gives error of like no authori
 ############################################################
 Auth methods and Policies
 ############################################################
+1) To check auth method list
+
+vault auth list
 
